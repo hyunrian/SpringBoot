@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="member : ${members}">
+        <tr th:each="member : ${members}"> /* th는 thymeleaf 문법. for each처럼 Model에 담았던 members를 꺼내 member에 담음 */
           <td th:text="${member.id}"></td>
           <td th:text="${member.name}"></td>
         </tr>
