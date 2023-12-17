@@ -1,15 +1,29 @@
 package hello.core;
 
+import hello.core.member.MemberRepository;
+import hello.core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
+import static org.springframework.context.annotation.ComponentScan.*;
+
 @Configuration
 @ComponentScan(
-        basePackages = "hello.core.member",
-        basePackageClasses = AutoAppConfig.class,
-        excludeFilters= @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
+//        basePackages = "hello.core.member",
+//        basePackageClasses = AutoAppConfig.class,
+        excludeFilters = @Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
 )
+
+public class AutoAppConfig {
+
+//    @Bean(name = "memoryMemberRepository")
+//    MemberRepository memberRepository() {
+//        return new MemoryMemberRepository();
+//    }
+}
+
 /*
  @ComponentScan : 특정 애너테이션이 있는 클래스를 스캔하여 스프링 빈으로 등록
  컴포넌트 스캔 기본 대상 : @Component, @Controller, @Service, @Repository, @Configuration
@@ -23,6 +37,3 @@ import org.springframework.context.annotation.FilterType;
 @Configuration : 스프링 설정 정보로 인식하고 스프링 빈이 싱글톤을 유지하도록 추가 처리
 @Service : 특별한 처리를 하지 않으나 개발자들이 핵심 비즈니스 로직이 여기에 있겠구나 하며 비즈니스 계층을 인식하는데 도움
  */
-public class AutoAppConfig {
-
-}
