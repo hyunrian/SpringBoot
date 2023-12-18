@@ -1,9 +1,6 @@
 package hello.core.lifecycle;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
-
-public class NetworkClient implements InitializingBean, DisposableBean { // 초기화, 소멸 인터페이스. 다른 방법을 주로 사용함
+public class NetworkClient { // 초기화, 소멸 인터페이스. 다른 방법을 주로 사용함
 
     private String url;
 
@@ -29,16 +26,14 @@ public class NetworkClient implements InitializingBean, DisposableBean { // 초�
         System.out.println("close " + url);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception { // 의존관계 주입이 끝난 뒤 실행(콜백)
-        System.out.println("NetworkClient.afterPropertiesSet");
+    public void init() { // 의존관계 주입이 끝난 뒤 실행(콜백)
+        System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메시지");
     }
 
-    @Override
-    public void destroy() throws Exception { // 빈이 종료될 때 실행(콜백)
-        System.out.println("NetworkClient.destroy");
+    public void close() { // 빈이 종료될 때 실행(콜백)
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 }
