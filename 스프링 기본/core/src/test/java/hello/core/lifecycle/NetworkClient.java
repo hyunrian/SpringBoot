@@ -1,5 +1,8 @@
 package hello.core.lifecycle;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 public class NetworkClient { // 초기화, 소멸 인터페이스. 다른 방법을 주로 사용함
 
     private String url;
@@ -26,12 +29,14 @@ public class NetworkClient { // 초기화, 소멸 인터페이스. 다른 방법
         System.out.println("close " + url);
     }
 
+    @PostConstruct // 최신 스프링에서 권장하는 방법. ComponentScan과도 함께 사용 가능. 외부 라이브러리에는 적용 불가
     public void init() { // 의존관계 주입이 끝난 뒤 실행(콜백)
         System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메시지");
     }
 
+    @PreDestroy
     public void close() { // 빈이 종료될 때 실행(콜백)
         System.out.println("NetworkClient.close");
         disconnect();
