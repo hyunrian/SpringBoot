@@ -45,14 +45,14 @@ public class BasicItemController {
         return "basic/addForm";
     }
 
-//    @PostMapping("/add")
+    //    @PostMapping("/add")
     public String addItemV1(@ModelAttribute("item") Item item, Model model) {
         itemRepository.save(item);
 //        model.addAttribute("item", item); // ModelAttribute name을 지정하면 해당 이름으로 자동 추가됨
         return "basic/item";
     }
 
-//    @PostMapping("/add")
+    //    @PostMapping("/add")
     public String addItemV2(@ModelAttribute Item item) {
         itemRepository.save(item);
         // ModelAttribute name을 지정하지 않으면 클래스명의 첫글자를 소문자로 바꾼 이름으로 자동 추가됨 ex) Item -> item
@@ -64,5 +64,18 @@ public class BasicItemController {
         itemRepository.save(item);
         // @ModelAttribute 자체를 생략해도 클래스명 첫글자를 소문자로 바꾼 이름으로 자동 추가됨
         return "basic/item";
+    }
+
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String update(@PathVariable Long itemId, Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
     }
 }
