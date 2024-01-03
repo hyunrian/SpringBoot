@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -59,11 +60,28 @@ public class BasicItemController {
         return "basic/item";
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV3(Item item) {
         itemRepository.save(item);
         // @ModelAttribute 자체를 생략해도 클래스명 첫글자를 소문자로 바꾼 이름으로 자동 추가됨
         return "basic/item";
+    }
+
+//    @PostMapping("/add")
+    public String addItemV4(Item item) {
+        itemRepository.save(item);
+        // PRG 패턴 적용
+        return "redirect:/basic/items/" + item.getId();
+    }
+
+    @PostMapping("/add")
+    public String addItemV5(Item item, RedirectAttributes redirectAttributes) {
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        // redirectAttribute를 사용하면 아래 코드와 같이 attributeName을 {}에 넣어 사용 가능
+        // {}로 사용되지 않은 요소는 쿼리 파라미터 형식으로 넘어가게 됨
+        return "redirect:/basic/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
