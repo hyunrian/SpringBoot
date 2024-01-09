@@ -175,6 +175,13 @@ public class ValidationItemControllerV2 {
         // BindingResult는 검증할 대상(@ModelAttirbute 객체) 바로 다음에 와야 함
         // BindingResult가 있으면 타입오류(Integer타입 <input>애 문자 입력)가 있어도 컨트롤러가 정상적으로 호출됨
 
+        /*
+        if (bindingResult.hasErrors()) { // 스프링이 자동으로 생성한 오류메시지만 보여주도록 함
+            log.info("errors={}", bindingResult);
+            return "validation/v2/addForm";
+        }
+         */
+
         log.info("objectName={}", bindingResult.getObjectName());
         log.info("target={}", bindingResult.getTarget());
 
