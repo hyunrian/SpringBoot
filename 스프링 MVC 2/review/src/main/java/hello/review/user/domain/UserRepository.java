@@ -2,8 +2,7 @@ package hello.review.user.domain;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class UserRepository {
@@ -15,5 +14,19 @@ public class UserRepository {
         user.setId(++id);
         store.put(user.getId(), user);
         return user;
+    }
+
+    public User findById(Long id) {
+        return store.get(id);
+    }
+
+    public List<User> findAll() {
+        return new ArrayList<>(store.values());
+    }
+
+    public Optional<User> findByLoginId(String loginId) {
+        return findAll().stream()
+                .filter(u -> u.getUserid().equals(loginId))
+                .findAny();
     }
 }
