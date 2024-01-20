@@ -20,13 +20,15 @@
 <body>
 <div class="container">
     <div class="py-5">
-        <h1>로그인</h1><br>
+        <h1>테스트</h1>
         <hr>
-        <form th:action method="post" th:object="${loginForm}">
-            아이디  <input type="text" th:field="*{userid}" class="form-control" th:errorclass="field-error"><br>
-            <p class="field-error" th:errors="*{userid}"></p>
-            비밀번호  <input type="password" th:field="*{password}" class="form-control" th:errorclass="field-error"><br>
-            <p class="field-error" th:errors="*{password}"></p>
+        <form th:action method="post" th:object="${validation}">
+            minVal  <input type="text" th:field="*{minVal}" class="form-control" th:errorclass="field-error"><br>
+            <p class="field-error" th:errors="*{minVal}"></p>
+            maxVal  <input type="text" th:field="*{maxVal}" class="form-control" th:errorclass="field-error"><br>
+            <p class="field-error" th:errors="*{maxVal}"></p>
+            rangeVal  <input type="text" th:field="*{rangeVal}" class="form-control" th:errorclass="field-error"><br>
+            <p class="field-error" th:errors="*{rangeVal}"></p>
             <div th:if="${#fields.hasGlobalErrors()}">
                 <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
             </div>
@@ -34,7 +36,6 @@
             <button class="btn btn-primary" type="button" onclick="location.href='/'">메인으로</button>
         </form>
     </div>
-
 </div>
 </body>
 </html>

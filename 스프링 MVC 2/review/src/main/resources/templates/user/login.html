@@ -27,7 +27,6 @@
             <p class="field-error" th:errors="*{userid}"></p>
             비밀번호  <input type="password" th:field="*{password}" class="form-control" th:errorclass="field-error"><br>
             <p class="field-error" th:errors="*{password}"></p>
-            <!--            프로필사진  <input type="file" th:field="*{userImage}" class="form-control"><br><br>-->
             <div th:if="${#fields.hasGlobalErrors()}">
                 <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
             </div>

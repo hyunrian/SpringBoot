@@ -16,11 +16,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        log.info("addInterceptors 실행");
-        registry.addInterceptor(new MyInterceptor())
-                .order(1) // 낮을수록 먼저 호출됨
-                .addPathPatterns("/**")
-                .excludePathPatterns("/", "/user/join", "/user/login", "/user/logout", "/css/**", "/*.ico", "/error");
+//        log.info("addInterceptors 실행");
+//        registry.addInterceptor(new MyInterceptor())
+//                .order(1) // 낮을수록 먼저 호출됨
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/", "/user/join", "/user/login", "/user/logout", "/css/**", "/*.ico", "/error");
     }
 
     @Override
