@@ -14,6 +14,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import review.data.domain.User;
 import review.data.repository.UserRepository;
+import review.data.repository.UserSearchCondition;
+import review.data.repository.UserUpdateDto;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-@Repository
+//@Repository
 public class JdbcUserRepository implements UserRepository {
 
     private final NamedParameterJdbcTemplate template;
@@ -58,7 +60,7 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public void update(User user) {
+    public void update(Long id, UserUpdateDto userDto) {
 
         String sql = "update user " +
                 "set user_name = :userName, " +
@@ -68,9 +70,9 @@ public class JdbcUserRepository implements UserRepository {
 
         // 위의 방식과 아래 방식 중 적합한 것으로 사용하면 됨
         SqlParameterSource param = new MapSqlParameterSource()
-                .addValue("userName", user.getUserName())
-                .addValue("phoneNum", user.getPhoneNum())
-                .addValue("id", user.getId());
+                .addValue("userName", userDto.getUserName())
+                .addValue("phoneNum", userDto.getPhoneNum())
+                .addValue("id", id);
 
         template.update(sql, param);
 
@@ -92,8 +94,9 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll(UserSearchCondition searchCondition) {
 
+        // searchCondition 작업은 되어있지 않음
         String sql = "select user_name, phone_num from user";
         RowMapper<User> rowMapper = BeanPropertyRowMapper.newInstance(User.class);
 

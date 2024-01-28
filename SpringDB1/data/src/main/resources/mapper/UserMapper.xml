@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review.data.repository.mybatis.UserMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into users (user_name, phone_num)
+        values (#{userName}, #{phoneNum})
+    </insert>
+
+    <update id="update">
+        update users
+        set user_name = #{userDto.userName},
+            phone_num = #{userDto.phoneNum}
+        where id = #{id}
+    </update>
+
+    <select id="findById" resultType="User">
+        select * from users
+        where id = #{id}
+    </select>
+
+    <select id="findAll" resultType="User">
+        select * from users
+        <if test="userName != null || userName != ''">
+            where user_name like concat('%', #{userName}, '%')
+        </if>
+    </select>
+
+    <delete id="delete">
+        delete from users
+        where id = #{id}
+    </delete>
+
+</mapper>

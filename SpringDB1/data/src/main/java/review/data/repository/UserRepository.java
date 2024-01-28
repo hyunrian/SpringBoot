@@ -9,11 +9,11 @@ public interface UserRepository {
 
     User save(User user);
 
-    void update(User user);
+    void update(Long id, UserUpdateDto userDto);
 
     Optional<User> findById(Long id);
 
-    List<User> findAll();
+    List<User> findAll(UserSearchCondition searchCondition);
 
     void delete(Long id);
 
