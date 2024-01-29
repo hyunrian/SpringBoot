@@ -10,7 +10,7 @@ import review.data.repository.UserUpdateDto;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 public class MyBatisUserRepository implements UserRepository {
 
     @Autowired

@@ -11,7 +11,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 @Transactional
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @SpringBootTest
 class UserRepositoryTest {
 
