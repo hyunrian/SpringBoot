@@ -22,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class ItemRepositoryTest {
 
-
     @Autowired
     ItemRepository itemRepository;
 
@@ -58,6 +57,7 @@ class ItemRepositoryTest {
 
         //when
         Item savedItem = itemRepository.save(item);
+        System.out.println("savedItem = " + savedItem);
 
         //then
         Item findItem = itemRepository.findById(item.getId()).get();
