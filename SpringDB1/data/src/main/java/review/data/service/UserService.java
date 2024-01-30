@@ -3,11 +3,11 @@ package review.data.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import review.data.domain.User;
 import review.data.repository.UserSearchCondition;
 import review.data.repository.UserUpdateDto;
-import review.data.repository.jpa.SpringDataJpaUserRepository;
+import review.data.repository.querydsl.UserQueryRepository;
+import review.data.repository.querydsl.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,39 +17,42 @@ import java.util.Optional;
 @Transactional
 public class UserService {
 
-    private final SpringDataJpaUserRepository repository;
+//    private final SpringDataJpaUserRepository jpaRepository;
+    private final UserRepository userRepository;
+    private final UserQueryRepository queryRepository;
 
     public User save(User user) {
-        repository.save(user);
-        return user;
+        return userRepository.save(user);
     }
 
     public void update(Long id, UserUpdateDto updateDto) {
-        User user = repository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElseThrow();
 
-        if (user != null) {
-            user.setUserName(updateDto.getUserName());
-            user.setPhoneNum(updateDto.getPhoneNum());
-        }
+        user.setUserName(updateDto.getUserName());
+        user.setPhoneNum(updateDto.getPhoneNum());
     }
 
     public Optional<User> findById(Long id) {
-        return repository.findById(id);
+        return userRepository.findById(id);
     }
 
+//    public List<User> findAll(UserSearchCondition condition) {
+//
+//        String userName = condition.getUserName();
+//
+//        if (StringUtils.hasText(userName)) {
+//           return jpaRepository.findByUserNameLike("%" + userName + "%");
+//        } else {
+//            return jpaRepository.findAll();
+//        }
+//    }
+
     public List<User> findAll(UserSearchCondition condition) {
-
-        String userName = condition.getUserName();
-
-        if (StringUtils.hasText(userName)) {
-           return repository.findByUserNameLike("%" + userName + "%");
-        } else {
-            return repository.findAll();
-        }
+        return queryRepository.findAll(condition);
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
 }
