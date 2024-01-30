@@ -14,7 +14,7 @@ import review.data.repository.UserUpdateDto;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 @Transactional
 public class JpaUserRepository implements UserRepository {
 
